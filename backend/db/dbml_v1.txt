@@ -1,0 +1,39 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table challenges {
+  id integer
+  back_lang_id integer [ref: - back_lang.id]
+  back_framework varchar [ref: - back_framework.id]
+  database varchar [ref: - database.id]
+  front_lang varchar [ref: - front_lang.id]
+  front_framework varchar [ref: - front_framework.id]
+  requires_design bool
+  deadline timestamp
+  created_at timestamp
+}
+
+Table back_lang {
+  id integer
+  name varchar
+}
+
+Table back_framework {
+  id integer
+  name varchar
+}
+
+Table database {
+  id integer
+  name varchar
+}
+
+Table front_lang {
+  id integer
+  name varchar
+}
+
+Table front_framework {
+  id integer
+  name varchar
+}
