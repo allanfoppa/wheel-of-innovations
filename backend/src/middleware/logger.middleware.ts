@@ -9,7 +9,20 @@ export class LoggerMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const start = Date.now();
 
-    // Capture response body
+    const logRequest = () => {
+      const { method, url, body, params, query } = req;
+      const requestLog = {
+        type: 'request',
+        URL: url,
+        METHOD: method,
+        BODY: JSON.stringify(body, null, 2),
+        PARAM: JSON.stringify(params, null, 2),
+        QUERY: JSON.stringify(query, null, 2),
+        CALL_AT: new Date().toISOString(),
+      };
+      this.logger(requestLog);
+    };
+
     const oldWrite = res.write;
     const oldEnd = res.end;
     const chunks: Buffer[] = [];
@@ -25,20 +38,6 @@ export class LoggerMiddleware implements NestMiddleware {
       }
       const result = oldEnd.apply(res, [chunk, ...args]);
       return result;
-    };
-
-    const logRequest = () => {
-      const { method, url, body, params, query } = req;
-      const requestLog = {
-        type: 'request',
-        URL: url,
-        METHOD: method,
-        BODY: JSON.stringify(body, null, 2),
-        PARAM: JSON.stringify(params, null, 2),
-        QUERY: JSON.stringify(query, null, 2),
-        CALL_AT: new Date().toISOString(),
-      };
-      this.logger(requestLog);
     };
 
     const logResponse = () => {

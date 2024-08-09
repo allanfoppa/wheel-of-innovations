@@ -1,42 +1,43 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Challenge } from './entities/challenge.entity';
+import { Challenges } from '../../database/entities/challenge.entity';
 import { CreateChallengeDto } from './dto/create-challenge.dto';
 import { UpdateChallengeDto } from './dto/update-challenge.dto';
-import { BackLang } from 'src/common/entities/back-lang.entity';
-import { BackFramework } from 'src/common/entities/back-framework.entity';
-import { DatabaseLanguage } from 'src/common/entities/database-lang.entity';
-import { FrontLang } from 'src/common/entities/front-lang.entity';
-import { FrontFramework } from 'src/common/entities/front-framework.entity';
 import { CHALLENGE_REPOSITORY } from 'src/database/database.constants';
+import { BackLang } from 'src/database/entities/back-lang.entity';
+import { BackFramework } from 'src/database/entities/back-framework.entity';
+import { DatabaseLanguage } from 'src/database/entities/database-lang.entity';
+import { FrontLang } from 'src/database/entities/front-lang.entity';
+import { FrontFramework } from 'src/database/entities/front-framework.entity';
 
 @Injectable()
 export class ChallengeService {
   constructor(
     @Inject(CHALLENGE_REPOSITORY)
-    private repository: Repository<Challenge>,
+    private repository: Repository<Challenges>,
   ) {}
 
-  async create(createChallengeDto: CreateChallengeDto): Promise<Challenge> {
+  async create(createChallengeDto: CreateChallengeDto): Promise<any> {
+  // async create(createChallengeDto: CreateChallengeDto): Promise<Challenges> {
     const { backLangId, backFrameworkId, databaseId, frontLangId, frontFrameworkId, ...rest } = createChallengeDto;
 
-    const challenge = this.repository.create({
-      ...rest,
-      backLang: { id: backLangId } as BackLang,
-      backFramework: { id: backFrameworkId } as BackFramework,
-      database: { id: databaseId } as DatabaseLanguage,
-      frontLang: { id: frontLangId } as FrontLang,
-      frontFramework: { id: frontFrameworkId } as FrontFramework,
-    });
+    // const challenge = this.repository.create({
+    //   ...rest,
+    //   backLangd: { id: backLangId } as BackLang,
+    //   backFramework: { id: backFrameworkId } as BackFramework,
+    //   database: { id: databaseId } as DatabaseLanguage,
+    //   frontLang: { id: frontLangId } as FrontLang,
+    //   frontFramework: { id: frontFrameworkId } as FrontFramework,
+    // });
 
-    return this.repository.save(challenge);
+    // return this.repository.save(challenge);
   }
 
-  findAll(): Promise<Challenge[]> {
+  findAll(): Promise<Challenges[]> {
     return this.repository.find({ relations: ['backLang', 'backFramework', 'database', 'frontLang', 'frontFramework'] });
   }
 
-  async findOne(id: number): Promise<Challenge> {
+  async findOne(id: number): Promise<Challenges> {
     const challenge = await this.repository.findOne({
       where: {
         id: id
@@ -48,7 +49,7 @@ export class ChallengeService {
     return challenge;
   }
 
-  async update(id: number, updateChallengeDto: UpdateChallengeDto): Promise<Challenge> {
+  async update(id: number, updateChallengeDto: UpdateChallengeDto): Promise<Challenges> {
     const { backLangId, backFrameworkId, databaseId, frontLangId, frontFrameworkId, ...rest } = updateChallengeDto;
 
     const challenge = await this.findOne(id);

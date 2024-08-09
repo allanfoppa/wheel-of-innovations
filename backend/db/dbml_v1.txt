@@ -3,37 +3,12 @@
 
 Table challenges {
   id integer
-  back_lang_id integer [ref: - back_lang.id]
-  back_framework varchar [ref: - back_framework.id]
-  database varchar [ref: - database.id]
-  front_lang varchar [ref: - front_lang.id]
-  front_framework varchar [ref: - front_framework.id]
+  back_lang integer
+  back_framework varchar
+  database varchar
+  front_lang varchar
+  front_framework varchar
   requires_design bool
   deadline timestamp
   created_at timestamp
-}
-
-Table back_lang {
-  id integer
-  name varchar
-}
-
-Table back_framework {
-  id integer
-  name varchar
-}
-
-Table database {
-  id integer
-  name varchar
-}
-
-Table front_lang {
-  id integer
-  name varchar
-}
-
-Table front_framework {
-  id integer
-  name varchar
 }
