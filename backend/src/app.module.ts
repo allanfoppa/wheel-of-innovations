@@ -1,18 +1,16 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './middleware/logger.middleware';
-import { ChallengeModule } from './features/challenge/challenge.module';
 import { EnvironmentModule } from './common/services/enviroments-variables/enviroment-variables.module';
+import { SeedsModule } from './features/seeds/seeds.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
+    DatabaseModule,
     EnvironmentModule,
-    ChallengeModule
+    SeedsModule
   ],
   controllers: [AppController],
   providers: [

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { BackLang } from './back-lang.entity';
 
 @Entity('back_framework')
@@ -9,7 +9,6 @@ export class BackFramework {
   @Column()
   name: string;
 
-  @OneToOne(() => BackLang, (backLang) => backLang.id)
-  @JoinColumn()
+  @ManyToOne(() => BackLang, (backLang) => backLang.id)
   backLang: BackLang;
 }
