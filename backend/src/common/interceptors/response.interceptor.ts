@@ -16,12 +16,12 @@ export class ResponseInterceptor implements NestInterceptor {
     const response = ctx.getResponse();
     const request = ctx.getRequest();
 
-    const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+    const status = exception instanceof HttpException ? exception?.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
 
     response.status(status).json({
       metadata: {
         status: "error",
-        statusCode: exception.getStatus(),
+        statusCode: status,
         errorInfo: {
           path: request.url,
           message: exception.message,
