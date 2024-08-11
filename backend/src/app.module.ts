@@ -5,6 +5,7 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 import { EnvironmentModule } from './common/services/enviroments-variables/enviroment-variables.module';
 import { SeedsModule } from './features/seeds/seeds.module';
 import { DatabaseModule } from './database/database.module';
+import { ResponseHelper } from './common/helpers/response.helper';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { DatabaseModule } from './database/database.module';
   ],
   controllers: [AppController],
   providers: [
+    ResponseHelper,
     AppService
   ],
 })
