@@ -25,11 +25,14 @@ export class Challenges {
   @ManyToOne(() => FrontFramework, (frontFramework) => frontFramework.id)
   frontFramework: FrontFramework;
 
-  @Column()
-  requiresDesign: boolean;
+  @Column({ default: false })
+  isDesignNeeded: boolean;
 
-  @Column({ type: 'timestamp' })
-  deadline: Date;
+  @Column()
+  deadline: string;
+
+  @Column({ default: false })
+  isCompleted: boolean;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

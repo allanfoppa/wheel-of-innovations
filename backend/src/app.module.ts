@@ -6,12 +6,16 @@ import { EnvironmentModule } from './common/services/enviroments-variables/envir
 import { SeedsModule } from './features/seeds/seeds.module';
 import { DatabaseModule } from './database/database.module';
 import { ResponseHelper } from './common/helpers/response.helper';
+import { TechnologiesModule } from './features/technologies/technologies.module';
+import { ChallengesModule } from './features/challenges/challenges.module';
 
 @Module({
   imports: [
-    DatabaseModule,
     EnvironmentModule,
-    SeedsModule
+    SeedsModule,
+    DatabaseModule,
+    TechnologiesModule,
+    ChallengesModule
   ],
   controllers: [AppController],
   providers: [
