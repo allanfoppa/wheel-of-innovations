@@ -8,6 +8,7 @@ import { FrontLang } from 'src/database/entities/front-lang.entity';
 import { FrontFramework } from 'src/database/entities/front-framework.entity';
 import { ResponseHelper } from 'src/common/helpers/response.helper';
 import { DatabaseLanguage } from 'src/database/entities/database-lang.entity';
+import { SeedsRepository } from './seeds.repository';
 
 @Module({
   imports: [
@@ -20,8 +21,9 @@ import { DatabaseLanguage } from 'src/database/entities/database-lang.entity';
     ]),
   ],
   providers: [
+    ResponseHelper,
     SeedsService,
-    ResponseHelper
+    SeedsRepository
   ],
   controllers: [SeedsController],
 })
