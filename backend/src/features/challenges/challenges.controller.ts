@@ -58,13 +58,30 @@ export class ChallengesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateChallengeDto: UpdateChallengeDto) {
-    // TODO: Start from here
-    return this.challengesService.update(+id, updateChallengeDto);
+  async update(@Param('id') id: string, @Body() updateChallengeDto: UpdateChallengeDto) {
+    try {
+      const response = await this.challengesService.update(+id, updateChallengeDto);
+
+      return this.responseHelper.createResponse(
+        `Challenge ${id} was update to status ${updateChallengeDto.isCompleted}.`,
+        response
+      );
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.challengesService.remove(+id);
+  async remove(@Param('id') id: string) {
+    try {
+      const response = await this.challengesService.remove(+id);
+
+      return this.responseHelper.createResponse(
+        `Challenge ${id} was deleted with success.`
+      );
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+
   }
 }

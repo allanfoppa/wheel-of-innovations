@@ -22,11 +22,11 @@ export class ChallengesService {
     return await this.challengesRepository.findOne(id);
   }
 
-  update(id: number, updateChallengeDto: UpdateChallengeDto) {
-    return this.challengesRepository.update(id, updateChallengeDto);
+  async update(id: number, updateChallengeDto: UpdateChallengeDto) {
+    return await this.challengesRepository.update(id, updateChallengeDto);
   }
 
-  remove(id: number) {
-    return this.challengesRepository.remove(id);
+  async remove(id: number) {
+    return await this.challengesRepository.remove(id);
   }
 }

@@ -52,10 +52,21 @@ export class ChallengesRepository {
   }
 
   async update(id: number, updateChallengeDto: UpdateChallengeDto) {
-    return `This action updates a #${id} challenge ${updateChallengeDto}`;
+
+    const challenge = await this.queriesHelper.challengeFindOne(id);
+    const response = await this.challengesRepository.save({
+      ...challenge,
+      isCompleted: updateChallengeDto.isCompleted
+    });
+
+    return response;
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} challenge`;
+
+    const challenge = await this.queriesHelper.challengeFindOne(id);
+    const response = await this.challengesRepository.remove([challenge]);
+
+    return response;
   }
 }
