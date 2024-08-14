@@ -1,0 +1,258 @@
+{
+	"info": {
+		"_postman_id": "55f7acd1-2170-405c-ab5e-2a3dc9058aa1",
+		"name": "WHEEL OF INNOVATIONS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28363410"
+	},
+	"item": [
+		{
+			"name": "Challenges",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"backLang\": 4,\r\n  \"backFramework\": 2,\r\n  \"databaseLanguage\": 1,\r\n  \"frontLang\": 1,\r\n  \"frontFramework\": 2,\r\n  \"isDesignNeeded\": false,\r\n  \"deadline\": \"2024-08-13T17:41:01.531Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/challenges",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"challenges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/challenges",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"challenges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isCompleted\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/challenges/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"challenges",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Challenge id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/challenges/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"challenges",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3",
+									"description": "Challenge id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/challenges/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"challenges",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6",
+									"description": "Challenge id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Seeds",
+			"item": [
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/seeds/all",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"seeds",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Back",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/seeds/back",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"seeds",
+								"back"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Front",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/seeds/front",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"seeds",
+								"front"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/seeds/database",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"seeds",
+								"database"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Technologies",
+			"item": [
+				{
+					"name": "Get List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/technologies",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"technologies"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Metadata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
