@@ -1,12 +1,14 @@
 import {
-  Box, Flex, HStack, IconButton, useDisclosure, Stack, Grid
+  Box, Flex, HStack, IconButton, useDisclosure, Stack, Grid,
+  Hide,
+  Show
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import { Logo } from '../components/Logo/Logo.component'
 import { NavLink } from '../components/NavLink/NavLink.component'
 
 import { MenuContants } from '../constants/menu-items.constant'
-import { CreateNewChallenge } from '../components/CreateNewChallenge/CreateNewChallenge.component'
+import { CreateNewChallengeCTA } from '../components/CreateNewChallengeCTA/CreateNewChallengeCTA.component'
 
 export const Header: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -49,26 +51,39 @@ export const Header: React.FC = () => {
 
   return (
     <>
+      <Show below='md'>
+        <Flex justifyContent={'center'} mt={4}>
+          <Logo />
+        </Flex>
+      </Show>
       <Flex
         h={16}
         alignItems={'center'}
         justifyContent={'space-around'}
-        p={14}
+        p={{
+          base: 4,
+          md: 14
+        }}
       >
         <MobileMenuIcon />
 
         <Grid
           templateColumns={{
-            base: 'repeat(2, 1fr)',
+            base: '1fr',
             md: '1fr 120px 1fr'
           }}
           gap={6}
           alignItems={'center'}
-          justifyItems={'center'}
+          justifyItems={{
+            base: 'center',
+            md: 'space-between'
+          }}
         >
           <ClickableMenu />
-          <Logo />
-          <CreateNewChallenge />
+          <Hide below='md'>
+            <Logo />
+          </Hide>
+          <CreateNewChallengeCTA />
         </Grid>
       </Flex>
 

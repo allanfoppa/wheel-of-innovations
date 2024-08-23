@@ -3,6 +3,7 @@ import {
   Box,
   useColorModeValue,
 } from '@chakra-ui/react'
+import { Link } from "react-router-dom"
 
 interface NavLinkProps {
   children: React.ReactNode,
@@ -10,19 +11,18 @@ interface NavLinkProps {
 }
 
 export const NavLink: React.FC<NavLinkProps> = ({ children, link }) => {
-
   return (
-    <Box
-      as="a"
-      px={2}
-      py={1}
-      _hover={{
-        textDecoration: 'underline',
-        bg: useColorModeValue('teal.50', 'teal.900'),
-      }}
-      href={link.toLocaleLowerCase()}
-    >
-      {children}
-    </Box>
+    <Link to={link.toLocaleLowerCase()}>
+      <Box
+        px={2}
+        py={1}
+        _hover={{
+          textDecoration: 'underline',
+          bg: useColorModeValue('teal.50', 'teal.900'),
+        }}
+      >
+        {children}
+      </Box>
+    </Link>
   )
 }
