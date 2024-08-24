@@ -1,10 +1,5 @@
 import React, { useContext } from 'react'
-import {
-  Box,
-  ButtonGroup,
-  Button,
-  Flex,
-} from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { ProgressBar } from '../ProgressBar/ProgressBar.component'
 import { SpinWheel } from '../SpinWheel/SpinWheel.component'
 import { CreateChallengeContext } from '../../contexts/CreateChallenge.context'
@@ -13,12 +8,9 @@ export const MultiStep: React.FC = () => {
 
   const {
     step,
-    spinningWheel,
-    setSpinningWheel,
     totalSteps,
-    setStep,
+    setSpinningWheel,
     progress,
-    setProgress
   } = useContext(CreateChallengeContext)
 
   const ChallengeSteps = (): JSX.Element => {
@@ -34,41 +26,8 @@ export const MultiStep: React.FC = () => {
       case 5:
         return <SpinWheel round="frontFramework" setSpinningWheel={setSpinningWheel} />
       default:
-        return <p>It's not possible create a spin wheel, please refresh your browser</p>
+        return <p>Finish</p>
     }
-  }
-
-  // TODO: [STOP HERE], to make this button start hiding after the last step and first one
-  const toggleNextButton = { 'display': spinningWheel || step === totalSteps ? 'none' : 'block' }
-
-  const handleNextButtonProgress = () => {
-    setStep(step + 1)
-    if (step === 5) {
-      setProgress(100)
-    } else {
-      setProgress(progress + progress)
-    }
-  }
-
-  const HandleNext = (): JSX.Element => {
-    return(
-      <ButtonGroup mt="5%" w="100%">
-        <Flex w="100%" justifyContent="space-between">
-          <Flex>
-            <Button
-              w="7rem"
-              display={'none'}
-              style={toggleNextButton}
-              onClick={handleNextButtonProgress}
-              colorScheme="teal"
-              variant="outline"
-            >
-              Next
-            </Button>
-          </Flex>
-        </Flex>
-      </ButtonGroup>
-    )
   }
 
   const OutputComponent = () => {
@@ -77,6 +36,7 @@ export const MultiStep: React.FC = () => {
         id='multi-step'
         borderWidth="1px"
         rounded="lg"
+        style={{ display: step === totalSteps + 1 ? 'none' : 'block' }}
         shadow="1px 1px 3px rgba(0,0,0,0.3)"
         maxWidth={600}
         p={8}
@@ -84,7 +44,6 @@ export const MultiStep: React.FC = () => {
       >
         <ProgressBar progress={progress} />
         <ChallengeSteps />
-        <HandleNext />
       </Box>
     )
   }

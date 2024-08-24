@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import { SpinWheel as SpinWheelGame, ISpinWheelProps } from 'spin-wheel-game';
+import { CreateChallengeContext } from '../../contexts/CreateChallenge.context';
 
 type SpinWheelProps = {
   setSpinningWheel: React.Dispatch<React.SetStateAction<boolean>>,
@@ -10,6 +12,13 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({
   round
 }) => {
 
+  const {
+    step, setStep,
+    totalSteps,
+    initalProgress,
+    progress, setProgress
+  } = useContext(CreateChallengeContext)
+
   // TODO: These information will come from API in the future
   const segments = [
     { segmentText: 'Option 1', segColor: 'red' },
@@ -18,7 +27,10 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({
   ];
 
   const handleSpinFinish = (result: string) => {
-    console.log(`Spun to: ${result}`);
+    console.log(`Spun to: ${result}, step: ${step}`);
+    setStep(step + 1)
+    if (step === totalSteps + 1) setProgress(100)
+    else setProgress(initalProgress + progress)
     setSpinningWheel(false)
     // TODO: Handle the result for each round
   };

@@ -13,7 +13,7 @@ export const SpunTo: React.FC = () => {
 
   const CreateChallengeButton = (): JSX.Element | null => {
     return(
-      step === totalSteps ? (
+      step === totalSteps + 1 ? (
         <Button
           w="7rem"
           colorScheme="red"
