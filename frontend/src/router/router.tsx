@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
       {
         path: Routes.CreateChallenge,
         async lazy() {
-          let { CreateChallenge } = await import("../views/CreateChallenge.view");
+          let { CreateChallenge } = await import("../views/CreateChallenge/CreateChallenge.view");
           return { Component: CreateChallenge };
         }
       },

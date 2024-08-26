@@ -1,4 +1,4 @@
-import { Box, Button, useToast } from "@chakra-ui/react"
+import { Box, Button, useToast, Heading  } from "@chakra-ui/react"
 import { useContext } from "react"
 import { CreateChallengeContext } from "../../contexts/CreateChallenge.context"
 
@@ -45,7 +45,12 @@ export const SpunTo: React.FC = () => {
         p={8}
         mx={10}
       >
-        <h2>Spun To</h2>
+        <Heading as='h3' size='xl' mb={6}>Spun To</Heading>
+        <Heading as='h5' size='md' mb={6}>Backend:</Heading>
+        <Heading as='h5' size='md' mb={6}>Backend Framework:</Heading>
+        <Heading as='h5' size='md' mb={6}>Database:</Heading>
+        <Heading as='h5' size='md' mb={6}>Frontend:</Heading>
+        <Heading as='h5' size='md' mb={6}>Frontend Framework:</Heading>
         <CreateChallengeButton />
       </Box>
     )
