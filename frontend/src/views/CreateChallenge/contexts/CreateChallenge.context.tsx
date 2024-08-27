@@ -9,6 +9,16 @@ interface CreateChallengeContextType {
   setProgress: React.Dispatch<React.SetStateAction<number>>;
   spinningWheel: boolean;
   setSpinningWheel: React.Dispatch<React.SetStateAction<boolean>>;
+  backLang: string;
+  setBackLang: React.Dispatch<React.SetStateAction<string>>;
+  backFramework: string;
+  setBackFramework: React.Dispatch<React.SetStateAction<string>>;
+  database: string;
+  setDatabase: React.Dispatch<React.SetStateAction<string>>;
+  frontLang: string;
+  setFrontLang: React.Dispatch<React.SetStateAction<string>>;
+  frontFramework: string;
+  setFrontFramework: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const TOTAL_STEPS: number = 5
@@ -25,6 +35,16 @@ export const CreateChallengeContext = createContext<CreateChallengeContextType>(
   setProgress: function ( progress: React.SetStateAction<number> ): void {},
   spinningWheel: false,
   setSpinningWheel: function ( spinningWheel: React.SetStateAction<boolean> ): void {},
+  backLang: '',
+  setBackLang: function ( backLang: React.SetStateAction<string> ): void {},
+  backFramework: '',
+  setBackFramework: function ( backFramework: React.SetStateAction<string> ): void {},
+  database: '',
+  setDatabase: function ( database: React.SetStateAction<string> ): void {},
+  frontLang: '',
+  setFrontLang: function ( frontLang: React.SetStateAction<string> ): void {},
+  frontFramework: '',
+  setFrontFramework: function ( frontFramework: React.SetStateAction<string> ): void {},
 });
 
 interface CreateChallengeProviderProps {
@@ -38,6 +58,11 @@ export const CreateChallengeProvider: React.FC<CreateChallengeProviderProps> = (
   const [ step, setStep ] = useState<number>(START_STEP)
   const [ progress, setProgress ] = useState<number>(PROGRESS)
   const [ spinningWheel, setSpinningWheel ] = useState<boolean>(false)
+  const [ backLang, setBackLang ] = useState<string>('')
+  const [ backFramework, setBackFramework ] = useState<string>('')
+  const [ database, setDatabase ] = useState<string>('')
+  const [ frontLang, setFrontLang ] = useState<string>('')
+  const [ frontFramework, setFrontFramework ] = useState<string>('')
 
   const contextValue: CreateChallengeContextType = {
     totalSteps,
@@ -45,6 +70,11 @@ export const CreateChallengeProvider: React.FC<CreateChallengeProviderProps> = (
     step, setStep,
     progress, setProgress,
     spinningWheel, setSpinningWheel,
+    backLang, setBackLang,
+    backFramework, setBackFramework,
+    database, setDatabase,
+    frontLang, setFrontLang,
+    frontFramework, setFrontFramework
   }
 
   return (

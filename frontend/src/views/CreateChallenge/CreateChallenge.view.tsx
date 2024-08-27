@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react'
 import { MultiStep } from '../../components/MultiStep/MultiStep.component'
 import { SpunTo } from '../../components/SpunTo/SpunTo.component'
-import { CreateChallengeProvider } from '../../contexts/CreateChallenge.context'
+import { CreateChallengeProvider } from './contexts/CreateChallenge.context'
 import { useEffect } from 'react'
 import { technologiesService } from '../../services/technologies.service'
 import { ResponseData } from './types/challenge.type'

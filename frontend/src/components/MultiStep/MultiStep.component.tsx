@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Box } from '@chakra-ui/react'
 import { ProgressBar } from '../ProgressBar/ProgressBar.component'
-import { CreateChallengeContext } from '../../contexts/CreateChallenge.context'
+import { CreateChallengeContext } from '../../views/CreateChallenge/contexts/CreateChallenge.context'
 import { SpinWheel } from '../SpinWheel/SpinWheel.component'
 
 export const MultiStep: React.FC = () => {

@@ -1,37 +1,18 @@
-import { Box, Button, useToast, Heading  } from "@chakra-ui/react"
+import { Box, Heading  } from "@chakra-ui/react"
 import { useContext } from "react"
-import { CreateChallengeContext } from "../../contexts/CreateChallenge.context"
+import { CreateChallengeContext } from "../../views/CreateChallenge/contexts/CreateChallenge.context"
+import { PairTechnologies } from "../PairTechnologies/PairTechnologies.component"
+import { CreateChallengeButton } from "../CreateChallengeButton/CreateChallengeButton.component"
 
 export const SpunTo: React.FC = () => {
 
-  const toast = useToast()
-
   const {
-    step,
-    totalSteps,
+    backLang,
+    backFramework,
+    database,
+    frontLang,
+    frontFramework
   } = useContext(CreateChallengeContext)
-
-  const CreateChallengeButton = (): JSX.Element | null => {
-    return(
-      step === totalSteps + 1 ? (
-        <Button
-          w="7rem"
-          colorScheme="red"
-          variant="solid"
-          onClick={() => {
-            toast({
-              title: 'Account created.',
-              description: "We've created your account for you.",
-              status: 'success',
-              duration: 3000,
-              isClosable: true,
-            })
-          }}>
-          Create
-        </Button>
-      ) : null
-    )
-  }
 
   const OutputComponent = (): JSX.Element => {
     return (
@@ -46,11 +27,11 @@ export const SpunTo: React.FC = () => {
         mx={10}
       >
         <Heading as='h3' size='xl' mb={6}>Spun To</Heading>
-        <Heading as='h5' size='md' mb={6}>Backend:</Heading>
-        <Heading as='h5' size='md' mb={6}>Backend Framework:</Heading>
-        <Heading as='h5' size='md' mb={6}>Database:</Heading>
-        <Heading as='h5' size='md' mb={6}>Frontend:</Heading>
-        <Heading as='h5' size='md' mb={6}>Frontend Framework:</Heading>
+        <PairTechnologies heading='Backend Language' choosedTech={backLang} />
+        <PairTechnologies heading='Backend Framework' choosedTech={backFramework} />
+        <PairTechnologies heading='Database' choosedTech={database} />
+        <PairTechnologies heading='Frontend' choosedTech={frontLang} />
+        <PairTechnologies heading='Frontend Framework' choosedTech={frontFramework} />
         <CreateChallengeButton />
       </Box>
     )
