@@ -1,14 +1,18 @@
-import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
+import { Controller, Get, InternalServerErrorException, UseInterceptors } from '@nestjs/common';
 import { TechnologiesService } from './technologies.service';
 import { ResponseHelper } from 'src/common/helpers/response.helper';
+import { CacheInterceptor, CacheKey } from '@nestjs/cache-manager';
+import { CACHE_TECHNOLOGIES } from 'src/common/constants/cache-constant';
 
 @Controller('technologies')
 export class TechnologiesController {
   constructor(
     private responseHelper: ResponseHelper,
-    private readonly technologiesService: TechnologiesService
+    private readonly technologiesService: TechnologiesService,
   ) {}
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey(CACHE_TECHNOLOGIES.NAME)
   @Get()
   async getList(): Promise<any> {
 

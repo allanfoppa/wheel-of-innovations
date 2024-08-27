@@ -8,9 +8,11 @@ import { DatabaseModule } from './database/database.module';
 import { ResponseHelper } from './common/helpers/response.helper';
 import { TechnologiesModule } from './features/technologies/technologies.module';
 import { ChallengesModule } from './features/challenges/challenges.module';
+import { CacheManagerModule } from './common/services/cache-manager/cache-manager.module';
 
 @Module({
   imports: [
+    CacheManagerModule,
     EnvironmentModule,
     SeedsModule,
     DatabaseModule,

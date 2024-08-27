@@ -12,3 +12,24 @@ services:
       - POSTGRES_DB=${DB_NAME}
     ports:
       - 5432:5432
+
+  redis:
+    container_name: wheel_of_innovations_cache
+    image: redis
+    volumes:
+      - redis:/data
+    ports:
+      - 6379:6379
+
+  redis-commander:
+    container_name: wheel_of_innovations_cache_commander
+    hostname: redis-commander
+    image: ghcr.io/joeferner/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - 8081:8081
+
+volumes:
+  redis:
+    driver: local
