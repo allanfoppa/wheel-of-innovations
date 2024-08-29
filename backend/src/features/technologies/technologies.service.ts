@@ -37,6 +37,26 @@ export class TechnologiesService {
     return response;
   }
 
+  async getDatabases(): Promise<any> {
+    const cachedValue = await this.cacheManagerService.get<any>(CACHE_TECHNOLOGIES.DATABASE_TECHNOLOGIES);
+    if (cachedValue) return cachedValue;
+
+    const response = await this.technologiesRepository.getDataBaseLanguages();
+    await this.cacheManagerService.set(CACHE_TECHNOLOGIES.DATABASE_TECHNOLOGIES, response, CACHE_TECHNOLOGIES.TTL);
+
+    return response;
+  }
+
+  async getFrontLangList(): Promise<any> {
+    const cachedValue = await this.cacheManagerService.get<any>(CACHE_TECHNOLOGIES.FRONT_LANG_TECHNOLOGIES);
+    if (cachedValue) return cachedValue;
+
+    const response = await this.technologiesRepository.getFrontLangs();
+    await this.cacheManagerService.set(CACHE_TECHNOLOGIES.FRONT_LANG_TECHNOLOGIES, response, CACHE_TECHNOLOGIES.TTL);
+
+    return response;
+  }
+
   async getFrontFrameworksByFrontLangId(frontLangId: number): Promise<any> {
     const response = await this.technologiesRepository.getFrontFrameworksByFrontLangId(frontLangId);
 

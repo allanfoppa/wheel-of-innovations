@@ -1,25 +1,18 @@
 import { Box, Heading  } from "@chakra-ui/react"
 import { PairTechnologies } from "../PairTechnologies/PairTechnologies.component"
 import { CreateChallengeButton } from "../CreateChallengeButton/CreateChallengeButton.component"
+import { IPayload } from "../../views/CreateChallenge/CreateChallenge.view"
 
 type SpunToProps = {
   step: number,
   totalSteps: number,
-  backLang: string,
-  backFramework: string,
-  database: string,
-  frontLang: string,
-  frontFramework: string
+  payload: IPayload
 }
 
 export const SpunTo: React.FC<SpunToProps> = ({
   step,
   totalSteps,
-  backLang,
-  backFramework,
-  database,
-  frontLang,
-  frontFramework
+  payload
 }) => {
 
   const OutputComponent = (): JSX.Element => {
@@ -35,12 +28,12 @@ export const SpunTo: React.FC<SpunToProps> = ({
         mx={10}
       >
         <Heading as='h3' size='xl' mb={6}>Spun To</Heading>
-        <PairTechnologies heading='Backend Language' choosedTech={backLang} />
-        <PairTechnologies heading='Backend Framework' choosedTech={backFramework} />
-        <PairTechnologies heading='Database' choosedTech={database} />
-        <PairTechnologies heading='Frontend' choosedTech={frontLang} />
-        <PairTechnologies heading='Frontend Framework' choosedTech={frontFramework} />
-        <CreateChallengeButton step={step} totalSteps={totalSteps} />
+        <PairTechnologies heading='Backend Language' choosedTech={payload.backLang.name || ''} />
+        <PairTechnologies heading='Backend Framework' choosedTech={payload.backFramework.name || ''} />
+        <PairTechnologies heading='Database' choosedTech={payload.database.name || ''} />
+        <PairTechnologies heading='Frontend' choosedTech={payload.frontLang.name || ''} />
+        <PairTechnologies heading='Frontend Framework' choosedTech={payload.frontFramework.name || ''} />
+        <CreateChallengeButton payload={payload} step={step} totalSteps={totalSteps} />
       </Box>
     )
   }

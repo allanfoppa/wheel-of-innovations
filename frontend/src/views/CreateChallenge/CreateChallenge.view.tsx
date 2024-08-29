@@ -7,6 +7,20 @@ import { handleAdaptTecnologies } from '../../data-transformation-utilities/hand
 import { SpinWheel } from '../../components/SpinWheel/SpinWheel.component'
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar.component'
 
+export interface ITechnologies {
+  id?: string | undefined;
+  name?: string;
+  segments?: any[];
+}
+
+export interface IPayload {
+  backLang: ITechnologies;
+  backFramework: ITechnologies;
+  database: ITechnologies;
+  frontLang: ITechnologies;
+  frontFramework: ITechnologies;
+}
+
 export const CreateChallenge: React.FC = () => {
 
   const TOTAL_STEPS: number = 5
@@ -15,22 +29,50 @@ export const CreateChallenge: React.FC = () => {
   const PROGRESS: number = (100 / TOTAL_STEPS) - INITIAL_PROGRESS
 
   const [ updateSpinWhellSegments, setUpdateSpinWhellSegments ] = useState<any[]>([])
-  const [ backLangSegments, setBackLangSegments ] = useState<any[]>([])
-  const [ frontLangSegments, setFrontLangSegments ] = useState<any[]>([])
   const [ step, setStep ] = useState<number>(START_STEP)
   const [ totalSteps, ] = useState<number>(TOTAL_STEPS)
   const [ initalProgress, ] = useState<number>(INITIAL_PROGRESS)
   const [ progress, setProgress ] = useState<number>(PROGRESS)
   const [ spinningWheel, setSpinningWheel ] = useState<boolean>(false)
-  const [ backLang, setBackLang ] = useState<string>('')
-  const [ backFramework, setBackFramework ] = useState<string>('')
-  const [ database, setDatabase ] = useState<string>('')
-  const [ frontLang, setFrontLang ] = useState<string>('')
-  const [ frontFramework, setFrontFramework ] = useState<string>('')
+  const [ backLang, setBackLang ] = useState<ITechnologies>({
+    id: '',
+    name: '',
+    segments: []
+  })
+  const [ backFramework, setBackFramework ] = useState<ITechnologies>({
+    id: '',
+    name: '',
+    segments: []
+  })
+  const [ database, setDatabase ] = useState<ITechnologies>({
+    id: '',
+    name: '',
+    segments: []
+  })
+  const [ frontLang, setFrontLang ] = useState<ITechnologies>({
+    id: '',
+    name: '',
+    segments: []
+  })
+  const [ frontFramework, setFrontFramework ] = useState<ITechnologies>({
+    id: '',
+    name: '',
+    segments: []
+  })
 
   const updateProgress = () => {
     if (step === totalSteps + 1) setProgress(100)
     else setProgress(initalProgress + progress)
+  }
+
+  const updateStep = () => setStep((prevStep) => prevStep + 1)
+
+  const payload: IPayload = {
+    backLang,
+    backFramework,
+    database,
+    frontLang,
+    frontFramework,
   }
 
   useEffect(() => {
@@ -38,52 +80,74 @@ export const CreateChallenge: React.FC = () => {
       try {
         const responseBackLang = await technologiesService({}).get<ResponseData>('/technologies/back-langs');
         const adaptedSegments = handleAdaptTecnologies({ data: responseBackLang.data })
-        setBackLangSegments(adaptedSegments);
+        setBackLang({ segments: adaptedSegments });
         setUpdateSpinWhellSegments(adaptedSegments);
       } catch (error) {
         console.error('Error fetching technologies:', error);
       }
     };
 
+    // STEP 1
     fetchBackLangTechnologies();
   }, []);
 
   const handleSpinFinish = async (result: string) => {
-    console.log(`Spun to before: ${result}, step: ${step}`);
-    setStep((prevStep) => prevStep + 1) // HERE
-    console.log(`Spun to after: ${result}, step: ${step}`);
+    updateStep()
     updateProgress()
+
+    console.log(payload);
 
     switch (step) {
       case 2:
         try {
-          setBackLang(result)
-          
-          const { id } = backLangSegments.find((segment: any) => segment.segmentText === result);
+          // MOUNT BACK FRAMEWORKS
+          const { id } = backLang.segments?.find((segment: any) => segment.segmentText === result);
           const response = await technologiesService({}).get<ResponseData>(`/technologies/back-frameworks/${id}`);
-          setUpdateSpinWhellSegments(handleAdaptTecnologies({ data: response.data }));
+          const adaptedSegments = handleAdaptTecnologies({ data: response.data })
+          setUpdateSpinWhellSegments(adaptedSegments);
+          setBackFramework({ segments: adaptedSegments })
+
+          // SET BACK LANG CHOOSED STEP EARLIER
+          setBackLang({
+            id: id,
+            name: result,
+          })
         } catch (error) {
           console.error('Error fetching technologies:', error);
         }
-        console.log('setBackLang STEP 2', result)
         break;
       case 3:
         try {
-          setBackFramework(result)
-          
+          // MOUNT DATABASES
           const response = await technologiesService({}).get<ResponseData>(`/technologies/database`);
-          setUpdateSpinWhellSegments(handleAdaptTecnologies({ data: response.data }));
+          const adaptedSegments = handleAdaptTecnologies({ data: response.data })
+          setDatabase({ segments: adaptedSegments });
+          setUpdateSpinWhellSegments(adaptedSegments);
+
+          // SET BACK FRAMEWORKS CHOOSED STEP EARLIER
+          const { id } = backFramework.segments?.find((segment: any) => segment.segmentText === result);
+          setBackFramework({
+            id,
+            name: result
+          })
         } catch (error) {
           console.error('Error fetching technologies:', error);
         }
-        console.log('setDatabase STEP 3', result)
         break;
       case 4:
         try {
-          setDatabase(result)
-          const response = await technologiesService({}).get<ResponseData>(`/technologies/front-frameworks`);
-          setFrontLangSegments(handleAdaptTecnologies({ data: response.data }));
-          setUpdateSpinWhellSegments(handleAdaptTecnologies({ data: response.data }));
+          // MOUNT FRONT LANGUAGES
+          const response = await technologiesService({}).get<ResponseData>(`/technologies/front-langs`);
+          const adaptedSegments = handleAdaptTecnologies({ data: response.data })
+          setFrontLang({ segments: adaptedSegments });
+          setUpdateSpinWhellSegments(adaptedSegments);
+
+          // SET DATABASE CHOOSED STEP EARLIER
+          const { id } = database.segments?.find((segment: any) => segment.segmentText === result);
+          setDatabase({
+            id,
+            name: result
+          })
         } catch (error) {
           console.error('Error fetching technologies:', error);
         }
@@ -91,17 +155,29 @@ export const CreateChallenge: React.FC = () => {
         break;
       case 5:
         try {
-          setFrontLang(result)
-          const { id } = frontLangSegments.find((segment: any) => segment.segmentText === result);
+          // MOUNT FRONT FRAMEWORKS
+          const { id } = frontLang.segments?.find((segment: any) => segment.segmentText === result);
           const response = await technologiesService({}).get<ResponseData>(`/technologies/front-frameworks/${id}`);
-          setUpdateSpinWhellSegments(handleAdaptTecnologies({ data: response.data }));
-          setFrontFramework(result)
+          const adaptedSegments = handleAdaptTecnologies({ data: response.data })
+          setFrontFramework({ segments: adaptedSegments });
+          setUpdateSpinWhellSegments(adaptedSegments);
+
+          // SET FRONT LANGUAGES CHOOSED STEP EARLIER
+          setFrontLang({
+            id,
+            name: result
+          })
         } catch (error) {
           console.error('Error fetching technologies:', error);
         }
         console.log('setFrontFramework STEP 5', result)
         break;
       default:
+        const { id } = frontFramework.segments?.find((segment: any) => segment.segmentText === result);
+        setFrontFramework({
+          id,
+          name: result
+        })
         break;
     }
 
@@ -122,23 +198,22 @@ export const CreateChallenge: React.FC = () => {
           id='multi-step'
           borderWidth="1px"
           rounded="lg"
-          style={{ display: step === totalSteps + 1 ? 'none' : 'block' }}
+          style={{ display: step > totalSteps + 1 ? 'none' : 'block' }}
           shadow="1px 1px 3px rgba(0,0,0,0.3)"
           maxWidth={600}
           p={8}
           mx={10}
         >
           <ProgressBar progress={progress} />
-          <SpinWheel segments={updateSpinWhellSegments} handleSpinFinish={handleSpinFinish} />
+          <SpinWheel
+            segments={updateSpinWhellSegments}
+            handleSpinFinish={handleSpinFinish}
+          />
         </Box>
         <SpunTo
           step={step}
           totalSteps={totalSteps}
-          backLang={backLang}
-          backFramework={backFramework}
-          database={database}
-          frontLang={frontLang}
-          frontFramework={frontFramework}
+          payload={payload}
         />
       </Flex>
     )

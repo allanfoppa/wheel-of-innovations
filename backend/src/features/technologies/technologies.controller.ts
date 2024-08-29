@@ -67,6 +67,42 @@ export class TechnologiesController {
     }
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey(CACHE_TECHNOLOGIES.DATABASE_TECHNOLOGIES)
+  @Get('database')
+  async getDatabaseList(): Promise<any> {
+
+    try {
+      let response = await this.technologiesService.getDatabases();
+
+      return this.responseHelper.createResponse(
+        "List with all database load with success.",
+        response
+      );
+
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey(CACHE_TECHNOLOGIES.FRONT_LANG_TECHNOLOGIES)
+  @Get('front-langs')
+  async getFrontLangList(): Promise<any> {
+
+    try {
+      let response = await this.technologiesService.getFrontLangList();
+
+      return this.responseHelper.createResponse(
+        "List with all frontend languages load with success.",
+        response
+      );
+
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
   @Get('front-frameworks/:frontLangId')
   async getFrontFrameworksByFrontLangId(
     @Param('frontLangId', NotEmptyPipe, ParseIntPipe) frontLangId: number
