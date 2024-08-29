@@ -55,11 +55,11 @@ export class TechnologiesRepository {
     };
   }
 
-  private async getBackLangs() {
+  async getBackLangs(): Promise<BackLang[]> {
     return await this.backLangRepository.find()
   }
 
-  private async getBackFrameworks() {
+  async getBackFrameworks(): Promise<BackFramework[]> {
     return await this.backFrameworkRepository.find({
       relations: {
         backLang: true,
@@ -67,11 +67,22 @@ export class TechnologiesRepository {
     })
   }
 
-  private async getFrontLangs() {
+  async getBackFrameworksByBackLangId(backLangId: number): Promise<BackFramework[]> {
+    return await this.backFrameworkRepository.find({
+      where: {
+        backLang: {
+          id: backLangId
+        }
+      },
+      relations: ['backLang']
+    })
+  }
+
+  async getFrontLangs(): Promise<FrontLang[]> {
     return await this.frontLangRepository.find()
   }
 
-  private async getFrontFrameworks() {
+  async getFrontFrameworks(): Promise<FrontFramework[]> {
     return await this.frontFrameworkRepository.find({
       relations: {
         frontLang: true,
@@ -79,7 +90,18 @@ export class TechnologiesRepository {
     })
   }
 
-  private async getDataBaseLanguages() {
+  async getFrontFrameworksByFrontLangId(frontLangId: number): Promise<FrontFramework[]> {
+    return await this.frontFrameworkRepository.find({
+      where: {
+        frontLang: {
+          id: frontLangId
+        }
+      },
+      relations: ['frontLang']
+    })
+  }
+
+  async getDataBaseLanguages(): Promise<DatabaseLanguage[]> {
     return await this.databaseLanguageRepository.find()
   }
 }

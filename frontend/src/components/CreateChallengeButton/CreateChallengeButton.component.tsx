@@ -1,20 +1,16 @@
 import { Button, useToast } from "@chakra-ui/react"
-import { useContext } from "react"
-import { CreateChallengeContext } from "../../views/CreateChallenge/contexts/CreateChallenge.context"
 
-export const CreateChallengeButton: React.FC = () => {
+type CreateChallengeButtonProps = {
+  step: number,
+  totalSteps: number
+}
+
+export const CreateChallengeButton: React.FC<CreateChallengeButtonProps> = ({
+  step,
+  totalSteps
+}) => {
 
   const toast = useToast()
-
-  const {
-    step,
-    totalSteps,
-    backLang,
-    backFramework,
-    database,
-    frontLang,
-    frontFramework
-  } = useContext(CreateChallengeContext)
 
   const shouldRenderButton = step === totalSteps + 1;
 
@@ -29,13 +25,6 @@ export const CreateChallengeButton: React.FC = () => {
       variant="solid"
       onClick={() => {
         // TODO: sent to backend
-        console.log(JSON.stringify({
-          backLang,
-          backFramework,
-          database,
-          frontLang,
-          frontFramework
-        }))
         toast({
           title: 'Account created.',
           description: "We've created your account for you.",

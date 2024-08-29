@@ -12,11 +12,33 @@ export class TechnologiesService {
   ) {}
 
   async getList(): Promise<TechnologyPayload> {
-    const cachedValue = await this.cacheManagerService.get<TechnologyPayload>(CACHE_TECHNOLOGIES.NAME);
+    const cachedValue = await this.cacheManagerService.get<TechnologyPayload>(CACHE_TECHNOLOGIES.ALL_TECHNOLOGIES);
     if (cachedValue) return cachedValue;
 
     const response = await this.technologiesRepository.getList();
-    await this.cacheManagerService.set(CACHE_TECHNOLOGIES.NAME, response, CACHE_TECHNOLOGIES.TTL);
+    await this.cacheManagerService.set(CACHE_TECHNOLOGIES.ALL_TECHNOLOGIES, response, CACHE_TECHNOLOGIES.TTL);
+
+    return response;
+  }
+
+  async getBackLangs(): Promise<any> {
+    const cachedValue = await this.cacheManagerService.get<any>(CACHE_TECHNOLOGIES.BACK_LANG_TECHNOLOGIES);
+    if (cachedValue) return cachedValue;
+
+    const response = await this.technologiesRepository.getBackLangs();
+    await this.cacheManagerService.set(CACHE_TECHNOLOGIES.BACK_LANG_TECHNOLOGIES, response, CACHE_TECHNOLOGIES.TTL);
+
+    return response;
+  }
+
+  async getBackFrameworksByBackLangId(backLangId: number): Promise<any> {
+    const response = await this.technologiesRepository.getBackFrameworksByBackLangId(backLangId);
+
+    return response;
+  }
+
+  async getFrontFrameworksByFrontLangId(frontLangId: number): Promise<any> {
+    const response = await this.technologiesRepository.getFrontFrameworksByFrontLangId(frontLangId);
 
     return response;
   }

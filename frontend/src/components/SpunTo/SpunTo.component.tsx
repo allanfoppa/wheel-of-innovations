@@ -1,18 +1,26 @@
 import { Box, Heading  } from "@chakra-ui/react"
-import { useContext } from "react"
-import { CreateChallengeContext } from "../../views/CreateChallenge/contexts/CreateChallenge.context"
 import { PairTechnologies } from "../PairTechnologies/PairTechnologies.component"
 import { CreateChallengeButton } from "../CreateChallengeButton/CreateChallengeButton.component"
 
-export const SpunTo: React.FC = () => {
+type SpunToProps = {
+  step: number,
+  totalSteps: number,
+  backLang: string,
+  backFramework: string,
+  database: string,
+  frontLang: string,
+  frontFramework: string
+}
 
-  const {
-    backLang,
-    backFramework,
-    database,
-    frontLang,
-    frontFramework
-  } = useContext(CreateChallengeContext)
+export const SpunTo: React.FC<SpunToProps> = ({
+  step,
+  totalSteps,
+  backLang,
+  backFramework,
+  database,
+  frontLang,
+  frontFramework
+}) => {
 
   const OutputComponent = (): JSX.Element => {
     return (
@@ -32,7 +40,7 @@ export const SpunTo: React.FC = () => {
         <PairTechnologies heading='Database' choosedTech={database} />
         <PairTechnologies heading='Frontend' choosedTech={frontLang} />
         <PairTechnologies heading='Frontend Framework' choosedTech={frontFramework} />
-        <CreateChallengeButton />
+        <CreateChallengeButton step={step} totalSteps={totalSteps} />
       </Box>
     )
   }
