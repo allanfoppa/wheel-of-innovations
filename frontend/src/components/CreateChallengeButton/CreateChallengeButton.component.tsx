@@ -1,19 +1,16 @@
-import { Button, useToast } from "@chakra-ui/react"
-import { IPayload } from "../../views/CreateChallenge/CreateChallenge.view"
+import { Button } from "@chakra-ui/react"
 
 type CreateChallengeButtonProps = {
   step: number,
   totalSteps: number,
-  payload: IPayload
+  handleWithSubmit: Function
 }
 
 export const CreateChallengeButton: React.FC<CreateChallengeButtonProps> = ({
   step,
   totalSteps,
-  payload
+  handleWithSubmit
 }) => {
-
-  const toast = useToast()
 
   const shouldRenderButton = step > totalSteps + 1;
 
@@ -24,19 +21,9 @@ export const CreateChallengeButton: React.FC<CreateChallengeButtonProps> = ({
   return(
     <Button
       w="7rem"
-      colorScheme="red"
+      colorScheme="green"
       variant="solid"
-      onClick={() => {
-        // TODO: sent to backend
-        console.log(payload);
-        toast({
-          title: 'Account created.',
-          description: "We've created your account for you.",
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-        })
-      }}>
+      onClick={() => handleWithSubmit() }>
       Create
     </Button>
   )
