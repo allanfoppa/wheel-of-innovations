@@ -1,6 +1,6 @@
 export enum Links {
   Home = '/',
-  Challenges = 'Challenges',
+  Challenges = 'list/challenge',
 }
 
 export enum LinksPathName {

@@ -7,7 +7,7 @@ export const technologiesService = (config: IServiceConfig) => {
 
   const request = async <T>(
     endpoint: string,
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
+    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' = 'GET',
     body?: any
   ): Promise<T> => {
     const url = `${process.env.REACT_APP_API_URL}${endpoint}`
@@ -36,6 +36,7 @@ export const technologiesService = (config: IServiceConfig) => {
     get: <T>(endpoint: string) => request<T>(endpoint),
     post: <T, R>(endpoint: string, data: T) => request<R>(endpoint, 'POST', data),
     put: <T, R>(endpoint: string, data: T) => request<R>(endpoint, 'PUT', data),
+    patch: <T, R>(endpoint: string, data: T) => request<R>(endpoint, 'PATCH', data),
     delete: <R>(endpoint: string) => request<R>(endpoint, 'DELETE'),
   }
 }

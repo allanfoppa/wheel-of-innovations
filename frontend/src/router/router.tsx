@@ -25,6 +25,13 @@ export const router = createBrowserRouter([
         }
       },
       {
+        path: Routes.ListOfChallenge,
+        async lazy() {
+          let { ListOfChallenges } = await import("../views/ListOfChallenges/ListOfChallenges.view");
+          return { Component: ListOfChallenges };
+        }
+      },
+      {
         path: Routes.NoMatch,
         async lazy() {
           let { NoMatch } = await import("../views/NoMatch.view");

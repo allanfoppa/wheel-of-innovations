@@ -18,8 +18,8 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({
     buttonText: 'Spin',
     isOnlyOnce: false,
     size: 240,
-    upDuration: 1, // 100
-    downDuration: 6, // 600
+    upDuration: 100, // 100
+    downDuration: 600, // 600
     fontFamily: "Poppins",
     arrowLocation: 'top',
     showTextOnSpin: false,
