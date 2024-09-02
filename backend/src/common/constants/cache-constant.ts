@@ -1,5 +1,5 @@
 
-const CACHE_TECHNOLOGIES = {
+export const CACHE_TECHNOLOGIES = {
   ALL_TECHNOLOGIES: 'all-technologies',
   BACK_LANG_TECHNOLOGIES: 'backlang-technologies',
   BACK_FRAMEWORK_TECHNOLOGIES: 'backframework-technologies',
@@ -7,8 +7,4 @@ const CACHE_TECHNOLOGIES = {
   FRONT_LANG_TECHNOLOGIES: 'frontlang-technologies',
   FRONT_FRAMEWORK_TECHNOLOGIES: 'frontframework-technologies',
   TTL: 3600
-}
-
-export {
-  CACHE_TECHNOLOGIES
 }

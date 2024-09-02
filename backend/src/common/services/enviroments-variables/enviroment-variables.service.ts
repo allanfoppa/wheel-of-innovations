@@ -16,7 +16,9 @@ export class EnvironmentService {
       'DB_PORT',
       'DB_USER',
       'DB_PASSWORD',
-      'DB_NAME'
+      'DB_NAME',
+      'SOCKET_PORT',
+      'SOCKET_HOST',
     ];
 
     for (const envVar of requiredEnvVars) {

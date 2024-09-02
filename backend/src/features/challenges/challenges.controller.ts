@@ -54,17 +54,15 @@ export class ChallengesController {
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
-
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateChallengeDto: UpdateChallengeDto) {
     try {
-      const response = await this.challengesService.update(+id, updateChallengeDto);
+      await this.challengesService.update(+id, updateChallengeDto);
 
       return this.responseHelper.createResponse(
         `Challenge ${id} was update to status ${updateChallengeDto.isCompleted}.`,
-        response
       );
     } catch (error) {
       throw new InternalServerErrorException(error.message);
@@ -74,10 +72,10 @@ export class ChallengesController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {
-      const response = await this.challengesService.remove(+id);
+      await this.challengesService.remove(+id);
 
       return this.responseHelper.createResponse(
-        `Challenge ${id} was deleted with success.`
+        `Challenge ${id} was deleted with success.`,
       );
     } catch (error) {
       throw new InternalServerErrorException(error.message);

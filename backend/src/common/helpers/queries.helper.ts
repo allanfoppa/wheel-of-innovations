@@ -87,6 +87,13 @@ export class QueriesHelper {
       where: {
         id,
       },
+      relations: [
+        'backLang',
+        'backFramework',
+        'frontLang',
+        'frontFramework',
+        'databaseLanguage'
+      ]
     });
     if (challenge === null) throw new BadRequestException('Challenge not found');
 

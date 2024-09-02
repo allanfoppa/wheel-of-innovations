@@ -14,8 +14,8 @@ import { CacheManagerService } from './cache-manager.service';
           store: (): any =>
             redisStore({
               socket: {
-                host: 'localhost',
-                port: 6379,
+                host: process.env.SOCKET_HOST,
+                port: parseInt(process.env.SOCKET_PORT, 10) || 6379,
               },
             }),
         };
